@@ -7,8 +7,9 @@
     
     <script id="fluxtube-update-config" type="application/json">
     {
+        "appVariant": "PAB",
         "latestVersion": "1.2.0",
-        "downloadLink": "https://github.com/fluxtube-pro/releases/download/v1.2.0/fluxtube-setup.exe",
+        "downloadUrl": "https://github.com/fluxtube-pro/releases/download/v1.2.0/fluxtube-setup.exe",
         "releaseNotes": [
             "Introduced deep-level bypass protocols for Extension CSPs.",
             "Added futuristic zero-latency update overlay UI.",
@@ -162,7 +163,9 @@
             try {
                 const data = JSON.parse(configBlock);
                 document.getElementById('display-version').innerText = `Version ${data.latestVersion}`;
-                document.getElementById('download-btn').href = data.downloadLink;
+                
+                // [FIX] Ensure we pull the correct key 'downloadUrl' now
+                document.getElementById('download-btn').href = data.downloadUrl || data.downloadLink || "#";
                 
                 const notesList = document.getElementById('display-notes');
                 data.releaseNotes.forEach(note => {
