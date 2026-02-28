@@ -25,26 +25,69 @@
             --cyan: #00d2d3;
             --text-main: #ffffff;
             --text-muted: #888888;
+            --glass-border: rgba(255, 255, 255, 0.08);
         }
 
         body {
             margin: 0;
             padding: 0;
-            background-color: var(--bg-dark);
+            height: 100vh;
+            background: transparent;
             color: var(--text-main);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            user-select: none;
+        }
+
+        #container {
+            width: 100%;
+            height: 100%;
+            background: var(--bg-dark);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 100vh;
-            overflow-x: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            padding: 30px;
+            box-sizing: border-box;
+            position: relative;
+            -webkit-app-region: drag;
+            overflow: hidden;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.05);
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            cursor: pointer;
+            -webkit-app-region: no-drag;
+            transition: all 0.2s;
+            z-index: 10;
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 71, 87, 0.8);
+            color: #fff;
         }
 
         .glow-bg {
             position: absolute;
-            width: 600px;
-            height: 600px;
+            width: 400px;
+            height: 400px;
             background: radial-gradient(circle, rgba(155, 89, 182, 0.15) 0%, rgba(0,0,0,0) 70%);
             top: 50%;
             left: 50%;
@@ -56,22 +99,31 @@
         .content {
             z-index: 1;
             text-align: center;
-            max-width: 600px;
-            padding: 40px;
+            width: 100%;
+            max-width: 380px;
+            padding: 25px 20px;
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
+            border-radius: 12px;
             backdrop-filter: blur(10px);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            box-sizing: border-box;
         }
 
         h1 {
-            font-size: 42px;
-            letter-spacing: 4px;
-            margin-bottom: 10px;
+            font-size: 26px;
+            letter-spacing: 2px;
+            margin: 0 0 5px 0;
             background: linear-gradient(90deg, var(--accent), var(--cyan));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+        }
+        
+        .variant-subtitle {
+            font-size: 14px;
+            color: var(--cyan);
+            letter-spacing: 2px;
+            margin-bottom: 15px;
             text-transform: uppercase;
         }
 
@@ -79,92 +131,104 @@
             display: inline-block;
             background: rgba(0, 210, 211, 0.1);
             color: var(--cyan);
-            padding: 6px 16px;
+            padding: 5px 12px;
             border-radius: 20px;
             font-weight: bold;
-            font-size: 14px;
-            margin-bottom: 30px;
+            font-size: 12px;
+            margin-bottom: 20px;
             border: 1px solid rgba(0, 210, 211, 0.3);
         }
 
         .btn-download {
             display: inline-block;
+            width: 100%;
+            box-sizing: border-box;
             background: var(--accent);
             color: #fff;
-            padding: 16px 40px;
-            font-size: 16px;
+            padding: 12px 20px;
+            font-size: 13px;
             font-weight: bold;
             text-decoration: none;
             border-radius: 8px;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
             transition: all 0.3s ease;
-            box-shadow: 0 10px 20px rgba(155, 89, 182, 0.3);
+            box-shadow: 0 4px 15px rgba(155, 89, 182, 0.3);
+            -webkit-app-region: no-drag;
         }
 
         .btn-download:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 25px rgba(155, 89, 182, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(155, 89, 182, 0.5);
             background: #a86dc4;
         }
 
         .notes-container {
-            margin-top: 40px;
+            margin-top: 25px;
             text-align: left;
             background: rgba(0,0,0,0.3);
-            padding: 20px;
-            border-radius: 12px;
+            padding: 15px;
+            border-radius: 8px;
             border: 1px solid rgba(255,255,255,0.05);
+            -webkit-app-region: no-drag;
+            height: 110px;
+            overflow-y: auto;
         }
 
+        .notes-container::-webkit-scrollbar { width: 5px; }
+        .notes-container::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 3px; }
+
         .notes-container h3 {
-            margin-top: 0;
-            font-size: 16px;
+            margin: 0 0 10px 0;
+            font-size: 13px;
             color: var(--text-muted);
             text-transform: uppercase;
             letter-spacing: 1px;
             border-bottom: 1px solid rgba(255,255,255,0.1);
-            padding-bottom: 10px;
+            padding-bottom: 8px;
         }
 
         ul {
+            margin: 0;
             color: #ccc;
-            line-height: 1.8;
-            font-size: 14px;
+            line-height: 1.6;
+            font-size: 12px;
             padding-left: 20px;
         }
+        
+        li { margin-bottom: 5px; }
     </style>
 </head>
 <body>
 
-    <div class="glow-bg"></div>
+    <div id="container">
+        <div class="close-btn" onclick="window.close()">✕</div>
+        <div class="glow-bg"></div>
 
-    <div class="content">
-        <h1>FLUXTUBE PRO</h1>
-        <div class="version-badge" id="display-version">Version Loading...</div>
-        
-        <p style="color: var(--text-muted); margin-bottom: 30px; font-size: 16px; line-height: 1.6;">
-            A critical system update is available. Upgrade your client to experience the latest protocols and bypass architectures.
-        </p>
+        <div class="content">
+            <h1>FLUXTUBE PRO</h1>
+            <div class="variant-subtitle" id="display-variant">PAB EDITION</div>
+            <div class="version-badge" id="display-version">Version Loading...</div>
+            
+            <p style="color: var(--text-muted); margin: 0 0 20px 0; font-size: 12px; line-height: 1.5;">
+                A critical system update is available. Upgrade your client to experience the latest protocols.
+            </p>
 
-        <a href="#" class="btn-download" id="download-btn">Download Windows Installer</a>
+            <a href="#" class="btn-download" id="download-btn">DOWNLOAD UPDATE</a>
 
-        <div class="notes-container">
-            <h3>Release Notes</h3>
-            <ul id="display-notes">
-                </ul>
+            <div class="notes-container">
+                <h3>Release Notes</h3>
+                <ul id="display-notes"></ul>
+            </div>
         </div>
     </div>
 
     <script>
-        // Hydrate the website UI using the configuration block at the top
         document.addEventListener("DOMContentLoaded", () => {
             const configBlock = document.getElementById('fluxtube-update-config').textContent;
             try {
                 const data = JSON.parse(configBlock);
                 document.getElementById('display-version').innerText = `Version ${data.latestVersion}`;
-                
-                // [FIX] Ensure we pull the correct key 'downloadUrl' now
                 document.getElementById('download-btn').href = data.downloadUrl || data.downloadLink || "#";
                 
                 const notesList = document.getElementById('display-notes');
@@ -180,7 +244,3 @@
     </script>
 </body>
 </html>
-
-
-
-
